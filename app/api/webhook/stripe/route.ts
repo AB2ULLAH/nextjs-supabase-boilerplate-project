@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Stripe from "stripe";
 import { headers } from "next/headers";
 import { buffer } from "node:stream/consumers";
@@ -57,10 +58,11 @@ export async function POST(req: any) {
 		}
 		return Response.json({});
 	} catch (e) {
-		return Response.json({ error: "Webhook Error: " + e.message });
+		return Response.json({ error: "Webhook Error: " + (e as Error).message });
 	}
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function onPpaymentSucceeded(end_at: string,
 	customer_id: string,
 	subscription_id: string,
